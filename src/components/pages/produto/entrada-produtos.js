@@ -6,12 +6,9 @@ import Axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style.css"
 
-
-
-
 function EntradaProduto() {
-
-
+    
+  const [phones, setPhones] = useState([])
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         shouldUnregister: false
     });
@@ -88,39 +85,41 @@ function EntradaProduto() {
 
     }
 
-
+    const addInputButton = (e) => {
+     e.preventDefault();
+     
+     setPhones([...phones , ""]);
+ };
     return (
         <div className="container p-5 mb-3 bg-light text-dark" style={{ marginTop: 30}}>
             <h2>{'Entrada Produto'}</h2>
             <form onSubmit={handleSubmit(Salvar)}>
                 <div className="row">
-                    <div className="form-group col-md-1">
-                        <label htmlFor="inputEmail4">Cod.</label>
-                        <input className="form-control" type="text" {...register("id")} id="id" />
-                    </div>
-                    <div className="form-group col-md-4">
-                        <label htmlFor="inputEmail4">Produto:</label>
-                        <input type="text" className="form-control" id="id_produto" placeholder="Produto" {...register("id_produto")} />
-                    </div>
-                    <div className="form-group col-md-4">
-                        <label htmlFor="inputPassword4">Marca:</label>
-                        <input type="text" className="form-control" name="marca" {...register('marca')} id="marca" placeholder="Marca" />
-                    </div>
-                    <div className="form-group col-md-3">
-                        <label htmlFor="inputEmail4">Quantidade:</label>
-                        <input type="text" className="form-control" id="quantidade" placeholder="Quantidade" {...register("quantidade")} />
-                    </div>
-
-                    <div className="btnCadastrar">
-                        <button className="btn btn-primary" >{'Confirmar'}</button>
-                    </div>
                 </div>
-            
-                
+               <row>
+                 <colgroup>
+                 <button color="secundary" onClick={addInputButton}>
+                   <i className="fa fa-fw fa-phone" aria-hidden="true"></i>
+                 </button>
+                 </colgroup>
+               </row>
+               <row>
+               {  phones.map((phone, index) =>(
+                  <colgroup key={index} sm = {12} lg = {4}>
+                  <label for = {`phone-${index+1}`}>{`telefone ${index+1}`}</label>
+                  <input
+                  type="text"
+                  name = "phone"
+                  id={`phone-${index+1}`}
+                  value={phone}
+                  placeholder={`Informe o telefone ${index+1}`}/>
+                  </colgroup>
+                 ))
+               }
+               </row>
             </form>
             
         </div>
-
 
 
     )
@@ -130,5 +129,3 @@ function EntradaProduto() {
 
 
 export default EntradaProduto;
-
-
